@@ -44,6 +44,7 @@
   <div class="dash-header">
     <h1>PAINEL <span>GESTOR</span></h1>
     <p>Gerencie todo o conteúdo do site e acompanhe métricas dos clientes.</p>
+    <button class="btn-secondary" onclick="redefinirTudo()" style="margin-top:.75rem;font-size:.75rem;opacity:.7">&#8635; Redefinir Cache</button>
   </div>
 
   <!-- KPI -->
@@ -63,6 +64,7 @@
     <button class="tab-btn" onclick="openTab('clientes')">Clientes</button>
     <button class="tab-btn" onclick="openTab('demandas')">Demandas</button>
     <button class="tab-btn" onclick="openTab('avaliacoes')">Avaliações</button>
+    <button class="tab-btn" onclick="openTab('textos')">Textos Hero</button>
   </div>
 
   <!-- IMAGENS -->
@@ -147,6 +149,22 @@
       <thead><tr><th>Cliente</th><th>Serviço</th><th>Nota</th></tr></thead>
       <tbody id="avaliacoes-body"></tbody>
     </table>
+  </div>
+
+  <!-- TEXTOS HERO -->
+  <div class="tab-panel" id="tab-textos">
+    <div class="panel-form">
+      <h3>Frases Animadas do Hero (Typed.js)</h3>
+      <p style="font-size:.8rem;color:var(--gray);margin-bottom:1.5rem">Estas frases aparecem na rotação automática do título principal do portfólio.</p>
+      <div class="form-group"><label>FRASE 1</label><input type="text" id="txt-hero1" placeholder="Especialista em Marketing Digital"/></div>
+      <div class="form-group"><label>FRASE 2</label><input type="text" id="txt-hero2" placeholder="Gestor de Tráfego Pago"/></div>
+      <div class="form-group"><label>FRASE 3</label><input type="text" id="txt-hero3" placeholder="Consultor de Performance"/></div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+        <button class="btn-send" onclick="salvarTextos()">Salvar Frases</button>
+        <button class="btn-secondary" onclick="redefinirTextos()">Restaurar Padrão</button>
+      </div>
+      <p class="success-msg" id="textos-ok">✓ Textos salvos!</p>
+    </div>
   </div>
 </div>
 

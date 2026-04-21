@@ -83,9 +83,17 @@
 
   function updateTyped() {
     if (typedInstance) typedInstance.destroy();
-    const strings = currentLang==='pt'
-      ? ['Especialista em Marketing Digital','Gestor de Tráfego Pago','Consultor de Performance']
-      : ['Digital Marketing Specialist','Paid Traffic Manager','Performance Consultant'];
+    let strings;
+    if (currentLang === 'pt') {
+      try {
+        const ov = localStorage.getItem('vmk3_hero_texts');
+        strings = ov ? JSON.parse(ov) : ['Especialista em Marketing Digital','Gestor de Tráfego Pago','Consultor de Performance'];
+      } catch(e) {
+        strings = ['Especialista em Marketing Digital','Gestor de Tráfego Pago','Consultor de Performance'];
+      }
+    } else {
+      strings = ['Digital Marketing Specialist','Paid Traffic Manager','Performance Consultant'];
+    }
     typedInstance = new Typed('#typed-title', {strings, typeSpeed:50, backSpeed:30, loop:true});
   }
 
@@ -158,4 +166,12 @@
     changeLang('pt');
     renderBlog();
     renderBI();
+    // Aplicar overrides salvos pelo gestor via localStorage
+    try {
+      const heroImg = localStorage.getItem('vmk3_hero_img');
+      if (heroImg) {
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg) heroBg.style.backgroundImage = `url('${heroImg}')`;
+      }
+    } catch(e) {}
   });

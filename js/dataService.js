@@ -42,6 +42,14 @@
 const USE_MOCK = true; // ← altere para false ao integrar backend
 const BASE_URL = 'https://api.seusite.com'; // ← sua URL de produção
 
+// ── localStorage helpers (persistência gestor → portfólio) ──────
+function _lsGet(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e) { return fallback; }
+}
+function _lsSet(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {}
+}
+
 // ========== MOCK DATA ==========
 
 const mockProjects = [
@@ -124,12 +132,14 @@ const DataService = {
 
   // --- Projetos e GPTs ---
   // ENDPOINT: GET /api/projects
-  getProjects: () => Promise.resolve(JSON.parse(JSON.stringify(mockProjects))),
+  getProjects: () => Promise.resolve(JSON.parse(JSON.stringify(_lsGet('vmk3_projects', mockProjects)))),
   // ENDPOINT: PUT /api/projects/:id  body: { title, image, link, ... }
   updateProject: (id, data) => {
-    const idx = mockProjects.findIndex(p => p.id === id);
-    if (idx !== -1) Object.assign(mockProjects[idx], data);
-    return Promise.resolve(mockProjects[idx]);
+    const projs = _lsGet('vmk3_projects', mockProjects);
+    const idx = projs.findIndex(p => p.id === id);
+    if (idx !== -1) Object.assign(projs[idx], data);
+    _lsSet('vmk3_projects', projs);
+    return Promise.resolve(projs[idx]);
   },
 
   // ENDPOINT: GET /api/gpts
@@ -137,32 +147,50 @@ const DataService = {
 
   // --- Blog ---
   // ENDPOINT: GET /api/posts
-  getPosts: () => Promise.resolve(JSON.parse(JSON.stringify(mockPosts))),
+  getPosts: () => Promise.resolve(JSON.parse(JSON.stringify(_lsGet('vmk3_posts', mockPosts)))),
   // ENDPOINT: POST /api/posts  body: { title, excerpt, date }
   addPost: (post) => {
+    const posts = _lsGet('vmk3_posts', mockPosts);
     const nova = { id: Date.now(), ...post };
-    mockPosts.unshift(nova);
+    posts.unshift(nova);
+    _lsSet('vmk3_posts', posts);
     return Promise.resolve(nova);
   },
   // ENDPOINT: PUT /api/posts/:id  body: { title, excerpt, date }
   updatePost: (id, data) => {
-    const idx = mockPosts.findIndex(p => p.id === id);
-    if (idx !== -1) Object.assign(mockPosts[idx], data);
-    return Promise.resolve(mockPosts[idx]);
+    const posts = _lsGet('vmk3_posts', mockPosts);
+    const idx = posts.findIndex(p => p.id === id);
+    if (idx !== -1) Object.assign(posts[idx], data);
+    _lsSet('vmk3_posts', posts);
+    return Promise.resolve(posts[idx]);
   },
   // ENDPOINT: DELETE /api/posts/:id
   deletePost: (id) => {
-    const idx = mockPosts.findIndex(p => p.id === id);
-    if (idx !== -1) mockPosts.splice(idx, 1);
+    const posts = _lsGet('vmk3_posts', mockPosts);
+    const idx = posts.findIndex(p => p.id === id);
+    if (idx !== -1) posts.splice(idx, 1);
+    _lsSet('vmk3_posts', posts);
     return Promise.resolve();
   },
 
   // --- BI ---
   // ENDPOINT: GET /api/bi/metricas
-  getMetricasBI: () => Promise.resolve(JSON.parse(JSON.stringify(mockMetricasBI))),
+  getMetricasBI: () => {
+    const stored = _lsGet('vmk3_bi', null);
+    if (stored) return Promise.resolve(JSON.parse(JSON.stringify(stored)));
+    const base = JSON.parse(JSON.stringify(mockMetricasBI));
+    base.valores = base.datasets[0].data.slice();
+    return Promise.resolve(base);
+  },
   // ENDPOINT: PUT /api/bi/metricas  body: { labels, valores }
   updateMetricasBI: (novasMetricas) => {
-    Object.assign(mockMetricasBI, novasMetricas);
+    const current = _lsGet('vmk3_bi', JSON.parse(JSON.stringify(mockMetricasBI)));
+    if (!current.valores) current.valores = (current.datasets && current.datasets[0]) ? current.datasets[0].data.slice() : [];
+    if (novasMetricas.valores) {
+      current.valores = novasMetricas.valores;
+      if (current.datasets && current.datasets[0]) current.datasets[0].data = novasMetricas.valores;
+    }
+    _lsSet('vmk3_bi', current);
     return Promise.resolve();
   },
 
@@ -218,11 +246,16 @@ const DataService = {
     { email: 'cliente@email.com', nome: 'Cliente Exemplo', plano: 'Tráfego Pago', desde: 'Jan 2025', demandas: 0 }
   ]),
   // ENDPOINT: PUT /api/gestor/hero  body: { url }
-  atualizarImagemHero: (url) => Promise.resolve({ success: true, url }),
+  atualizarImagemHero: (url) => {
+    localStorage.setItem('vmk3_hero_img', url);
+    return Promise.resolve({ success: true, url });
+  },
   // ENDPOINT: PUT /api/gestor/projetos/:projetoId/imagem  body: { url }
   atualizarImagemProjeto: (projetoId, url) => {
-    const idx = mockProjects.findIndex(p => p.id === projetoId);
-    if (idx !== -1) mockProjects[idx].image = url;
+    const projs = _lsGet('vmk3_projects', mockProjects);
+    const idx = projs.findIndex(p => p.id === projetoId);
+    if (idx !== -1) projs[idx].image = url;
+    _lsSet('vmk3_projects', projs);
     return Promise.resolve();
   }
 };

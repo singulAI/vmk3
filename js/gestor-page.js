@@ -42,6 +42,7 @@
     carregarClientes();
     carregarDemandas();
     carregarAvaliacoes();
+    carregarTextos();
   }
 
   // ── IMAGENS ──────────────────────────────────────────────
@@ -57,10 +58,10 @@
       const body = document.getElementById('projetos-img-body');
       body.innerHTML = ps.map(p => `
         <tr>
-          <td>${p.title}</td>
-          <td><img class="img-preview" src="${p.img}" alt="" onerror="this.style.opacity='.2'"/></td>
-          <td><input type="text" id="img-url-${p.id}" value="${p.img}" style="background:#0a0a0a;border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:.4rem .7rem;color:#fff;font-size:.82rem;width:220px;outline:none"/></td>
-          <td><button class="btn-edit" onclick="salvarImgProjeto(${p.id})">Salvar</button></td>
+          <td>${typeof p.title === 'object' ? p.title.pt : p.title}</td>
+          <td><img class="img-preview" src="${p.image}" alt="" onerror="this.style.opacity='.2'"/></td>
+          <td><input type="text" id="img-url-${p.id}" value="${p.image}" style="background:#0a0a0a;border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:.4rem .7rem;color:#fff;font-size:.82rem;width:220px;outline:none"/></td>
+          <td><button class="btn-edit" onclick="salvarImgProjeto('${p.id}')">Salvar</button></td>
         </tr>`).join('');
     });
   }
@@ -76,8 +77,8 @@
       const body = document.getElementById('projetos-body');
       body.innerHTML = ps.map(p => `
         <tr>
-          <td>${p.title}</td>
-          <td>${p.categoria || '—'}</td>
+          <td>${typeof p.title === 'object' ? p.title.pt : p.title}</td>
+          <td>${p.category || '—'}</td>
           <td><a href="${p.link}" target="_blank" style="font-size:.8rem">${p.link ? 'Abrir ↗' : '—'}</a></td>
           <td><button class="btn-edit">Editar</button></td>
         </tr>`).join('');
@@ -151,10 +152,11 @@
 
   function renderBIInputs(m) {
     const container = document.getElementById('bi-inputs');
+    const vals = m.valores || (m.datasets && m.datasets[0] ? m.datasets[0].data : []);
     container.innerHTML = m.labels.map((label, i) => `
       <div>
         <label>${label}</label>
-        <input type="number" id="bi-val-${i}" value="${m.valores[i]}"/>
+        <input type="number" id="bi-val-${i}" value="${vals[i] || 0}"/>
       </div>`).join('');
   }
 
@@ -179,7 +181,7 @@
         labels: m.labels,
         datasets: [{
           label: 'Métricas',
-          data: m.valores,
+          data: m.valores || (m.datasets && m.datasets[0] ? m.datasets[0].data : []),
           backgroundColor: 'rgba(204,255,0,.5)',
           borderColor: '#CCFF00',
           borderWidth: 2,
@@ -248,7 +250,41 @@
         <td>${'★'.repeat(a.nota)}${'☆'.repeat(5 - a.nota)}</td>
       </tr>`).join('');
   }
+  // ── TEXTOS HERO ─────────────────────────────────────────
+  function carregarTextos() {
+    try {
+      const t = JSON.parse(localStorage.getItem('vmk3_hero_texts') || 'null');
+      if (t) {
+        ['txt-hero1','txt-hero2','txt-hero3'].forEach((id, i) => {
+          const el = document.getElementById(id);
+          if (el) el.value = t[i] || '';
+        });
+      }
+    } catch(e) {}
+  }
 
+  function salvarTextos() {
+    const texts = ['txt-hero1','txt-hero2','txt-hero3']
+      .map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; })
+      .filter(Boolean);
+    if (texts.length) {
+      localStorage.setItem('vmk3_hero_texts', JSON.stringify(texts));
+      mostrarOk('textos-ok');
+    }
+  }
+
+  function redefinirTextos() {
+    localStorage.removeItem('vmk3_hero_texts');
+    ['txt-hero1','txt-hero2','txt-hero3'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    mostrarOk('textos-ok');
+  }
+
+  function redefinirTudo() {
+    if (!confirm('Apagar todas as alterações salvas e restaurar dados padrão?')) return;
+    ['vmk3_projects','vmk3_posts','vmk3_bi','vmk3_hero_img','vmk3_hero_texts'].forEach(k => localStorage.removeItem(k));
+    carregarTudo();
+    alert('Dados redefinidos para o padrão.');
+  }
   // ── HELPERS ──────────────────────────────────────────────
   function mostrarOk(id) {
     const el = document.getElementById(id);
