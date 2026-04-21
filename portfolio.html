@@ -14,6 +14,8 @@
 <!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
+<!-- Tunnel vision overlay (micro-chat) -->
+<div id="mc-tunnel"></div>
 
 <!-- Overlay -->
 <div id="overlay" onclick="closeAllDrawers()"></div>
@@ -163,64 +165,8 @@
   <div class="projects-grid" id="project-list"></div>
 </section>
 
-<!-- GPT -->
-<section id="gpts">
-  <div class="section-label" data-lang="pt:Inteligência Artificial|en:Artificial Intelligence">Inteligência Artificial</div>
-  <h2 class="section-title" data-aos="fade-up">
-    <span data-lang="pt:FERRAMENTAS|en:AI TOOLS &">FERRAMENTAS</span><br>
-    <span style="color:var(--yellow)" data-lang="pt:IA & ASSISTENTES|en:ASSISTANTS">IA & ASSISTENTES</span>
-  </h2>
-  <!-- Card SingulAI estático -->
-  <a href="https://singulai.site" target="_blank" rel="noopener" class="gpt-card singulai-card" data-aos="fade-up" style="text-decoration:none;display:flex;flex-direction:column;">
-    <div class="gpt-card-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
-        <rect x="2" y="2" width="36" height="36" rx="8" stroke="#CCFF00" stroke-width="1.5"/>
-        <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#CCFF00" letter-spacing="1">IA</text>
-      </svg>
-    </div>
-    <h3>SingulAI</h3>
-    <p data-lang="pt:Agência especializada em Inteligência Artificial aplicada ao marketing e negócios. Automações, GPTs customizados e soluções que escalam resultados.|en:Agency specialized in Artificial Intelligence applied to marketing and business. Automations, custom GPTs and solutions that scale results.">Agência especializada em Inteligência Artificial aplicada ao marketing e negócios. Automações, GPTs customizados e soluções que escalam resultados.</p>
-    <span style="margin-top:auto;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:var(--yellow);text-transform:uppercase;">singulai.site ↗</span>
-  </a>
-  <div class="gpt-grid" id="gpt-list"></div>
-</section>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="section-label" data-lang="pt:Conteúdo|en:Content">Conteúdo</div>
-  <h2 class="section-title" data-aos="fade-up">
-    <span data-lang="pt:BLOG &|en:BLOG &">BLOG &</span><br>
-    <span style="color:var(--yellow)" data-lang="pt:INSIGHTS|en:INSIGHTS">INSIGHTS</span>
-  </h2>
-  <div class="blog-grid" id="blog-posts-container"></div>
-</section>
-
-<!-- BI DASHBOARD -->
-<section id="bi">
-  <div class="section-label" data-lang="pt:Resultados|en:Results">Resultados</div>
-  <h2 class="section-title" data-aos="fade-up">
-    <span data-lang="pt:DASHBOARD DE|en:PERFORMANCE">DASHBOARD DE</span><br>
-    <span style="color:var(--yellow)" data-lang="pt:PERFORMANCE|en:DASHBOARD">PERFORMANCE</span>
-  </h2>
-  <div class="bi-card" data-aos="fade-up">
-    <canvas id="performanceChart" height="100"></canvas>
-  </div>
-</section>
-
-<!-- CLIENTS -->
+<!-- CLIENTES / CONFIANÇA -->
 <section id="clients">
-  <div class="section-label" data-lang="pt:Ferramentas que utilizo|en:Tools I Use">Ferramentas que utilizo</div>
-  <h2 class="section-title" data-aos="fade-up" style="margin-bottom:2rem">
-    <span data-lang="pt:TECNOLOGIAS|en:TECHNOLOGIES">TECNOLOGIAS</span><br>
-    <span style="color:var(--yellow)" data-lang="pt:DE PERFORMANCE|en:FOR PERFORMANCE">DE PERFORMANCE</span>
-  </h2>
-  <div style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;margin-bottom:4rem" data-aos="fade-up">
-    <img src="assets/images/logo-meta.png" alt="Meta Ads" style="height:40px;width:auto;opacity:.7"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" style="height:40px;width:auto;opacity:.7"/>
-    <img src="assets/images/logo-canva.png" alt="Canva" style="height:40px;width:auto;opacity:.7"/>
-    <img src="assets/images/logo-instagram.png" alt="Instagram" style="height:40px;width:auto;opacity:.7"/>
-  </div>
-
   <div class="section-label" data-lang="pt:Clientes e Parceiros|en:Clients & Partners">Clientes e Parceiros</div>
   <h2 class="section-title" data-aos="fade-up" style="margin-bottom:2rem">
     <span data-lang="pt:CONFIANÇA|en:TRUSTED BY">CONFIANÇA</span><br>
@@ -242,7 +188,7 @@
   </div>
 </section>
 
-<!-- DIAGNOSTICO -->
+<!-- DIAGNÓSTICO -->
 <section id="diagnostico" style="border-top:1px solid rgba(255,255,255,.05);padding:5rem 4vw">
   <div class="section-label" data-lang="pt:Diagnóstico Rápido|en:Quick Diagnosis">Diagnóstico Rápido</div>
   <h2 class="section-title" data-aos="fade-up">
@@ -276,8 +222,8 @@
   </div>
 </section>
 
-<!-- CONTACT SECTION -->
-<div class="contact-section">
+<!-- CONTACT 1: PRONTO PARA CRESCER -->
+<div class="contact-section" id="contact">
   <div>
     <div class="section-label" data-lang="pt:Vamos Conversar|en:Let's Talk">Vamos Conversar</div>
     <div class="contact-big" data-aos="fade-up">
@@ -294,6 +240,102 @@
           <div class="mc-input-row" id="mc-input-row">
             <input type="text" id="mc-inp" placeholder="seu contato" autocomplete="off" spellcheck="false"/>
             <button id="mc-send" aria-label="Enviar">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-links" data-aos="fade-left">
+    <a href="https://instagram.com/o_vitor_alves__" target="_blank" class="contact-link">Instagram</a>
+    <a href="https://linkedin.com/in/vitoralvesprofile" target="_blank" class="contact-link">LinkedIn</a>
+    <a href="https://github.com/VitorManoel007" target="_blank" class="contact-link">GitHub</a>
+  </div>
+</div>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-label" data-lang="pt:Conteúdo|en:Content">Conteúdo</div>
+  <h2 class="section-title" data-aos="fade-up">
+    <span data-lang="pt:BLOG &|en:BLOG &">BLOG &</span><br>
+    <span style="color:var(--yellow)" data-lang="pt:INSIGHTS|en:INSIGHTS">INSIGHTS</span>
+  </h2>
+  <div class="blog-grid" id="blog-posts-container"></div>
+</section>
+
+<!-- BI DASHBOARD -->
+<section id="bi">
+  <div class="section-label" data-lang="pt:Resultados|en:Results">Resultados</div>
+  <h2 class="section-title" data-aos="fade-up">
+    <span data-lang="pt:DASHBOARD DE|en:PERFORMANCE">DASHBOARD DE</span><br>
+    <span style="color:var(--yellow)" data-lang="pt:PERFORMANCE|en:DASHBOARD">PERFORMANCE</span>
+  </h2>
+  <div class="bi-mini-row" data-aos="fade-up">
+    <div class="bi-mini-card" onclick="openBiModal('bar','Meta Ads')">
+      <div class="bi-mini-label">Meta Ads</div>
+      <canvas id="biPrev0" class="bi-prev-canvas"></canvas>
+      <span class="bi-mini-cta">Ver Detalhe →</span>
+    </div>
+    <div class="bi-mini-card" onclick="openBiModal('line','ROI Mensal')">
+      <div class="bi-mini-label">ROI Mensal</div>
+      <canvas id="biPrev1" class="bi-prev-canvas"></canvas>
+      <span class="bi-mini-cta">Ver Detalhe →</span>
+    </div>
+    <div class="bi-mini-card" onclick="openBiModal('doughnut','Canais de Tráfego')">
+      <div class="bi-mini-label">Canais de Tráfego</div>
+      <canvas id="biPrev2" class="bi-prev-canvas"></canvas>
+      <span class="bi-mini-cta">Ver Detalhe →</span>
+    </div>
+  </div>
+</section>
+
+<!-- BI MODAL -->
+<div id="bi-modal" class="bi-modal" onclick="biModalOutside(event)">
+  <div class="bi-modal-glass">
+    <button class="bi-modal-close" onclick="closeBiModal()">×</button>
+    <div class="bi-modal-title" id="bi-modal-title"></div>
+    <canvas id="biModalChart" style="max-height:320px"></canvas>
+  </div>
+</div>
+
+<!-- GPT / IA WEB 3.0 -->
+<section id="gpts">
+  <div class="section-label" data-lang="pt:Inteligência Artificial|en:Artificial Intelligence">Inteligência Artificial</div>
+  <h2 class="section-title" data-aos="fade-up">
+    <span data-lang="pt:ASSISTENTES|en:ASSISTANTS">ASSISTENTES</span><br>
+    <span style="color:var(--yellow)" data-lang="pt:AI - WEB 3.0|en:AI - WEB 3.0">AI - WEB 3.0</span>
+  </h2>
+  <a href="https://singulai.site" target="_blank" rel="noopener" class="gpt-card singulai-card" data-aos="fade-up" style="text-decoration:none;display:flex;flex-direction:column;">
+    <div class="gpt-card-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+        <rect x="2" y="2" width="36" height="36" rx="8" stroke="#CCFF00" stroke-width="1.5"/>
+        <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#CCFF00" letter-spacing="1">IA</text>
+      </svg>
+    </div>
+    <h3>SingulAI</h3>
+    <p data-lang="pt:Plataforma de amplitude global, que eleva a expertise do profissional integrando IA com aprendizado e memória segura e acessível somente à você.|en:Global-scale platform that elevates professional expertise by integrating AI with learning and secure memory accessible only to you.">Plataforma de amplitude global, que eleva a expertise do profissional integrando IA com aprendizado e memória segura e acessível somente à você.</p>
+    <span style="margin-top:auto;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:var(--yellow);text-transform:uppercase;">singulai.site ↗</span>
+  </a>
+  <div class="gpt-grid" id="gpt-list"></div>
+</section>
+
+<!-- CTA 2: A DIFERENÇA ESTÁ NA DECISÃO -->
+<div class="contact-section contact-section-2" id="cta2">
+  <div>
+    <div class="section-label" data-lang="pt:Decisão|en:Decision">Decisão</div>
+    <div class="contact-big" data-aos="fade-up">
+      <span data-lang="pt:A DIFERENÇA ESTÁ|en:THE DIFFERENCE IS">A DIFERENÇA ESTÁ</span><br>
+      <em data-lang="pt:NA DECISÃO.|en:IN THE DECISION.">NA DECISÃO.</em>
+    </div>
+    <div style="margin-top:2.5rem">
+      <div class="mc-wrap" id="mc2-wrap">
+        <span class="mc-face">
+          <span class="mc-face-label" data-lang="pt:Tomar Decisão|en:Make the Move">Tomar Decisão</span>
+        </span>
+        <div class="mc-chat" id="mc2-chat">
+          <span class="mc-output" id="mc2-output"></span><span class="mc-cur" id="mc2-cur">▌</span>
+          <div class="mc-input-row" id="mc2-input-row">
+            <input type="text" id="mc2-inp" placeholder="seu contato" autocomplete="off" spellcheck="false"/>
+            <button id="mc2-send" aria-label="Enviar">→</button>
           </div>
         </div>
       </div>
@@ -360,51 +402,147 @@
 <script src="js/main.js" defer></script>
 
 <script>
-(function(){
-  var wrap   = document.getElementById('mc-wrap');
-  var output = document.getElementById('mc-output');
-  var cur    = document.getElementById('mc-cur');
-  var row    = document.getElementById('mc-input-row');
-  var inp    = document.getElementById('mc-inp');
-  var send   = document.getElementById('mc-send');
-
-  var MSG = 'Chegar aqui foi o primeiro passo.\nÉ o que basta para você estar um passo à frente da concorrência!';
+// ── Micro-chat factory ──────────────────────────────────────────
+function initMicroChat(ids) {
+  var wrap   = document.getElementById(ids.wrap);
+  var output = document.getElementById(ids.output);
+  var cur    = document.getElementById(ids.cur);
+  var row    = document.getElementById(ids.row);
+  var inp    = document.getElementById(ids.inp);
+  var send   = document.getElementById(ids.send);
+  var tunnel = document.getElementById('mc-tunnel');
+  if (!wrap) return;
   var started = false;
+
+  function positionTunnel() {
+    var r = wrap.getBoundingClientRect();
+    var cx = r.left + r.width  / 2;
+    var cy = r.top  + r.height / 2;
+    tunnel.style.setProperty('--tx', cx + 'px');
+    tunnel.style.setProperty('--ty', cy + 'px');
+  }
 
   function typeWrite() {
     var i = 0;
     function next() {
-      if (i < MSG.length) {
-        output.textContent += MSG[i];
-        var ch = MSG[i]; i++;
-        var d = ch === '\n' ? 320 : 36 + Math.random() * 22;
+      if (i < ids.msg.length) {
+        output.textContent += ids.msg[i];
+        var ch = ids.msg[i]; i++;
+        var d = ch === '\n' ? 220 : 18 + Math.random() * 12;
         setTimeout(next, d);
       } else {
         cur.style.display = 'none';
         wrap.classList.add('mc-done');
-        setTimeout(function(){ inp.focus(); }, 150);
+        setTimeout(function(){ inp && inp.focus(); }, 140);
       }
     }
-    setTimeout(next, 250);
+    setTimeout(next, 200);
   }
 
   wrap.addEventListener('mouseenter', function() {
     if (started) return;
     started = true;
+    positionTunnel();
+    tunnel.classList.add('active');
     wrap.classList.add('open');
     typeWrite();
+  });
+
+  wrap.addEventListener('mouseleave', function() {
+    // só remove o tunnel se não digitou ainda
+    if (!wrap.classList.contains('mc-done') && started) {
+      // mantém aberto se já iniciou
+    }
   });
 
   function handleSend() {
     var v = inp.value.trim();
     if (!v) { inp.focus(); return; }
-    localStorage.setItem('mc_lead', v);
-    row.innerHTML = '<p style="font-family:\'Space Mono\',monospace;font-size:.75rem;color:var(--yellow);letter-spacing:.1em;margin:0">✓ Recebido. Em breve Vitor entra em contato.</p>';
+    localStorage.setItem('mc_lead_' + ids.wrap, v);
+    row.innerHTML = '<p style="font-family:\'Space Mono\',monospace;font-size:.75rem;color:var(--yellow);letter-spacing:.1em;margin:0">\u2713 Recebido. Em breve Vitor entra em contato.</p>';
+    setTimeout(function(){ tunnel.classList.remove('active'); }, 1200);
   }
 
   send.addEventListener('click', handleSend);
   inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') handleSend(); });
-})();
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  initMicroChat({
+    wrap:'mc-wrap', output:'mc-output', cur:'mc-cur',
+    row:'mc-input-row', inp:'mc-inp', send:'mc-send',
+    msg:'Chegar aqui foi o primeiro passo.\n\u00c9 o que basta para voc\u00ea estar um passo \u00e0 frente da concorr\u00eancia!'
+  });
+  initMicroChat({
+    wrap:'mc2-wrap', output:'mc2-output', cur:'mc2-cur',
+    row:'mc2-input-row', inp:'mc2-inp', send:'mc2-send',
+    msg:'A maioria abandona antes do resultado.\nVoc\u00ea chegou at\u00e9 aqui. Isso j\u00e1 te separa da m\u00e9dia.\nO pr\u00f3ximo passo \u00e9 seu.'
+  });
+
+  // ── BI Mini Charts ──────────────────────────────────────────────
+  var biLabels = ['Jan','Fev','Mar','Abr','Mai','Jun'];
+  var biYellow = '#CCFF00';
+  var biYellowBg = 'rgba(204,255,0,.12)';
+  var biGray = 'rgba(255,255,255,.08)';
+  var chartDefs = [
+    { id:'biPrev0', type:'bar',      data:[12,19,15,27,32,40] },
+    { id:'biPrev1', type:'line',     data:[1.8,2.1,1.9,2.8,3.2,4.0] },
+    { id:'biPrev2', type:'doughnut', data:[45,30,15,10], labels:['Meta','Google','Orgânico','Outros'] }
+  ];
+  chartDefs.forEach(function(def) {
+    var el = document.getElementById(def.id);
+    if (!el) return;
+    var datasets = def.type === 'doughnut'
+      ? [{ data: def.data, backgroundColor:['#CCFF00','rgba(204,255,0,.6)','rgba(204,255,0,.35)','rgba(204,255,0,.15)'], borderWidth:0 }]
+      : [{ data: def.data, borderColor: biYellow, backgroundColor: biYellowBg, tension:0.4, fill:true, pointRadius:0, borderWidth:1.5 }];
+    new Chart(el, {
+      type: def.type,
+      data: { labels: def.type==='doughnut' ? def.labels : biLabels, datasets: datasets },
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false} },
+        scales: def.type!=='doughnut' ? {
+          x:{ display:false, grid:{color:biGray} },
+          y:{ display:false, grid:{color:biGray} }
+        } : {}
+      }
+    });
+  });
+});
+
+// ── BI Modal ────────────────────────────────────────────────────
+var biModalChart = null;
+function openBiModal(type, title) {
+  var modal = document.getElementById('bi-modal');
+  var titleEl = document.getElementById('bi-modal-title');
+  var canvas  = document.getElementById('biModalChart');
+  titleEl.textContent = title;
+  if (biModalChart) { biModalChart.destroy(); biModalChart = null; }
+  var labels  = ['Jan','Fev','Mar','Abr','Mai','Jun'];
+  var yellow  = '#CCFF00';
+  var yellowBg= 'rgba(204,255,0,.12)';
+  var datasets, options;
+  if (type === 'bar') {
+    datasets = [{ label:'Conversões', data:[12,19,15,27,32,40], backgroundColor:yellowBg, borderColor:yellow, borderWidth:1.5 }];
+    options  = { plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}}} };
+  } else if (type === 'line') {
+    datasets = [{ label:'ROI', data:[1.8,2.1,1.9,2.8,3.2,4.0], borderColor:yellow, backgroundColor:yellowBg, tension:0.4, fill:true }];
+    options  = { plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}}} };
+  } else {
+    labels   = ['Meta Ads','Google Ads','Orgânico','Outros'];
+    datasets = [{ data:[45,30,15,10], backgroundColor:['#CCFF00','rgba(204,255,0,.6)','rgba(204,255,0,.35)','rgba(204,255,0,.15)'], borderWidth:0 }];
+    options  = { plugins:{legend:{labels:{color:'#fff'}}} };
+  }
+  biModalChart = new Chart(canvas, { type:type, data:{labels:labels,datasets:datasets}, options:Object.assign({responsive:true,maintainAspectRatio:false},options) });
+  modal.classList.add('open');
+}
+function closeBiModal() {
+  document.getElementById('bi-modal').classList.remove('open');
+  if (biModalChart) { biModalChart.destroy(); biModalChart = null; }
+}
+function biModalOutside(e) {
+  if (e.target === document.getElementById('bi-modal')) closeBiModal();
+}
 </script>
 
 </body>
