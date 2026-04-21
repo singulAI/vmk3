@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Projeto Singul AI">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141414"/>
+      <stop offset="1" stop-color="#080808"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <rect x="24" y="24" width="1152" height="627" fill="none" stroke="#CCFF00" stroke-opacity="0.4" stroke-width="3"/>
+  <text x="600" y="310" fill="#CCFF00" text-anchor="middle" font-size="72" font-family="Arial, sans-serif" letter-spacing="5">SINGUL AI</text>
+  <text x="600" y="380" fill="#F2F2F2" text-anchor="middle" font-size="32" font-family="Arial, sans-serif" opacity="0.8">Imagem Placeholder</text>
+</svg>

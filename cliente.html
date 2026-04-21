@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Área do Cliente — VITOR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/cliente.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">VIT<span>O</span>R <span style="font-size:.9rem;color:rgba(255,255,255,.4);font-family:'Space Mono',monospace"> / CLIENTE</span></div>
+  <div class="nav-right">
+    <span class="nav-user" id="nav-username"></span>
+    <button class="btn-logout" id="btn-logout" style="display:none" onclick="logout()">Sair</button>
+    <a href="portfolio.html" style="font-size:.8rem;color:var(--gray)">← Portfólio</a>
+  </div>
+</nav>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <h2>ÁREA DO <span>CLIENTE</span></h2>
+    <p class="login-sub">Acesse com suas credenciais para visualizar documentos, relatórios e abrir demandas.</p>
+    <div class="form-group">
+      <label>E-MAIL</label>
+      <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label>SENHA</label>
+      <input type="password" id="login-senha" placeholder="••••••" autocomplete="current-password"/>
+    </div>
+    <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
+    <p class="login-error" id="login-error">Credenciais inválidas. Tente novamente.</p>
+    <p style="font-size:.75rem;color:var(--gray);margin-top:1.5rem;text-align:center">Demo: cliente@email.com / 123456</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard-screen">
+  <div class="dash-header">
+    <h1>OLÁ, <span id="dash-nome">CLIENTE</span></h1>
+    <p>Bem-vindo à sua área exclusiva. Gerencie seus contratos, documentos e demandas.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab('documentos')">Documentos</button>
+    <button class="tab-btn" onclick="openTab('contratos')">Contratos</button>
+    <button class="tab-btn" onclick="openTab('relatorios')">Relatórios</button>
+    <button class="tab-btn" onclick="openTab('sac')">SAC / Demanda</button>
+    <button class="tab-btn" onclick="openTab('demandas')">Minhas Demandas</button>
+    <button class="tab-btn" onclick="openTab('avaliacoes')">Avaliações</button>
+  </div>
+
+  <!-- DOCUMENTOS -->
+  <div class="tab-panel active" id="tab-documentos">
+    <div class="card-list" id="lista-documentos"></div>
+  </div>
+
+  <!-- CONTRATOS -->
+  <div class="tab-panel" id="tab-contratos">
+    <div class="card-list" id="lista-contratos"></div>
+  </div>
+
+  <!-- RELATÓRIOS -->
+  <div class="tab-panel" id="tab-relatorios">
+    <div class="card-list" id="lista-relatorios"></div>
+  </div>
+
+  <!-- SAC -->
+  <div class="tab-panel" id="tab-sac">
+    <div class="sac-form">
+      <h3>Abrir nova demanda</h3>
+      <div class="form-group">
+        <label>ASSUNTO</label>
+        <input type="text" id="sac-assunto" placeholder="Ex: Ajuste de campanha"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>SERVIÇO</label>
+          <select id="sac-servico">
+            <option value="trafico">Tráfego Pago</option>
+            <option value="consultoria">Consultoria IA</option>
+            <option value="social">Social Media</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>PRIORIDADE</label>
+          <select id="sac-prioridade">
+            <option value="normal">Normal</option>
+            <option value="alta">Alta</option>
+            <option value="urgente">Urgente</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>DESCRIÇÃO</label>
+        <textarea id="sac-descricao" placeholder="Descreva em detalhes o que precisa..."></textarea>
+      </div>
+      <button class="btn-send" onclick="enviarDemanda()">Enviar Demanda</button>
+      <p class="success-msg" id="sac-success">✓ Demanda enviada com sucesso!</p>
+    </div>
+  </div>
+
+  <!-- DEMANDAS -->
+  <div class="tab-panel" id="tab-demandas">
+    <div id="lista-demandas"></div>
+  </div>
+
+  <!-- AVALIAÇÕES -->
+  <div class="tab-panel" id="tab-avaliacoes">
+    <div class="avaliacao-section">
+      <div class="avaliacao-item">
+        <h4>Tráfego Pago</h4>
+        <div class="stars" id="stars-trafico"
+             data-servico="trafico"></div>
+      </div>
+      <div class="avaliacao-item">
+        <h4>Consultoria IA</h4>
+        <div class="stars" id="stars-consultoria"
+             data-servico="consultoria"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/dataService.js"></script>
+<script src="js/cliente-page.js"></script>
+</body>
+</html>

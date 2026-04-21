@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Gestor — VITOR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/gestor.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">VIT<span>O</span>R <span style="font-size:.85rem;color:rgba(255,255,255,.35);font-family:'Space Mono',monospace"> / GESTOR</span></div>
+  <div class="nav-right">
+    <span class="nav-user" id="nav-username"></span>
+    <button class="btn-logout" id="btn-logout" style="display:none" onclick="logout()">Sair</button>
+    <a href="portfolio.html" style="font-size:.8rem;color:var(--gray)">← Portfólio</a>
+  </div>
+</nav>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <h2>PAINEL DO <span>GESTOR</span></h2>
+    <p class="login-sub">Acesso restrito. Gerencie projetos, posts, BI e clientes.</p>
+    <div class="form-group">
+      <label>E-MAIL</label>
+      <input type="email" id="login-email" placeholder="gestor@email.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label>SENHA</label>
+      <input type="password" id="login-senha" placeholder="••••••" autocomplete="current-password"/>
+    </div>
+    <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
+    <p class="login-error" id="login-error">Credenciais inválidas.</p>
+    <p style="font-size:.75rem;color:var(--gray);margin-top:1.5rem;text-align:center">Demo: gestor@email.com / admin123</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard-screen">
+  <div class="dash-header">
+    <h1>PAINEL <span>GESTOR</span></h1>
+    <p>Gerencie todo o conteúdo do site e acompanhe métricas dos clientes.</p>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-label">Clientes Ativos</div><div class="kpi-val" id="kpi-clientes">—</div></div>
+    <div class="kpi-card"><div class="kpi-label">Demandas Abertas</div><div class="kpi-val" id="kpi-demandas">—</div></div>
+    <div class="kpi-card"><div class="kpi-label">Posts Publicados</div><div class="kpi-val" id="kpi-posts">—</div></div>
+    <div class="kpi-card"><div class="kpi-label">Projetos</div><div class="kpi-val" id="kpi-projetos">—</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab('imagens')">Imagens</button>
+    <button class="tab-btn" onclick="openTab('projetos')">Projetos</button>
+    <button class="tab-btn" onclick="openTab('blog')">Blog</button>
+    <button class="tab-btn" onclick="openTab('bi')">BI / Métricas</button>
+    <button class="tab-btn" onclick="openTab('clientes')">Clientes</button>
+    <button class="tab-btn" onclick="openTab('demandas')">Demandas</button>
+    <button class="tab-btn" onclick="openTab('avaliacoes')">Avaliações</button>
+  </div>
+
+  <!-- IMAGENS -->
+  <div class="tab-panel active" id="tab-imagens">
+    <div class="panel-form">
+      <h3>Atualizar Imagem Hero</h3>
+      <div class="form-group">
+        <label>URL ou caminho da nova imagem</label>
+        <input type="text" id="img-hero-url" placeholder="assets/images/hero.jpg"/>
+      </div>
+      <button class="btn-send" onclick="atualizarHero()">Salvar</button>
+      <p class="success-msg" id="hero-ok">✓ Imagem hero atualizada!</p>
+    </div>
+    <div>
+      <h3 style="font-size:.9rem;color:var(--gray);margin-bottom:1rem">Projetos — atualizar imagem</h3>
+      <table class="g-table" id="tabela-projetos-img">
+        <thead><tr><th>Projeto</th><th>Preview</th><th>Nova URL</th><th></th></tr></thead>
+        <tbody id="projetos-img-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PROJETOS -->
+  <div class="tab-panel" id="tab-projetos">
+    <table class="g-table" id="tabela-projetos">
+      <thead><tr><th>Nome</th><th>Categoria</th><th>Link</th><th>Ações</th></tr></thead>
+      <tbody id="projetos-body"></tbody>
+    </table>
+  </div>
+
+  <!-- BLOG -->
+  <div class="tab-panel" id="tab-blog">
+    <div class="panel-form" id="form-post">
+      <h3 id="form-post-title">Novo Post</h3>
+      <div class="form-group"><label>TÍTULO</label><input type="text" id="post-titulo" placeholder="Título do post"/></div>
+      <div class="form-group"><label>RESUMO</label><textarea id="post-resumo" placeholder="Breve descrição..."></textarea></div>
+      <div class="form-group"><label>DATA</label><input type="text" id="post-data" placeholder="2025-06-01"/></div>
+      <div style="display:flex;gap:.75rem;align-items:center">
+        <button class="btn-send" onclick="salvarPost()">Publicar</button>
+        <button class="btn-secondary" id="btn-cancelar-post" style="display:none" onclick="cancelarPost()">Cancelar</button>
+      </div>
+      <p class="success-msg" id="post-ok">✓ Post salvo!</p>
+    </div>
+    <table class="g-table">
+      <thead><tr><th>Título</th><th>Data</th><th>Ações</th></tr></thead>
+      <tbody id="posts-body"></tbody>
+    </table>
+  </div>
+
+  <!-- BI -->
+  <div class="tab-panel" id="tab-bi">
+    <div class="panel-form" style="max-width:800px">
+      <h3>Atualizar Métricas</h3>
+      <div class="bi-inputs" id="bi-inputs"></div>
+      <button class="btn-send" onclick="salvarBI()">Atualizar Gráfico</button>
+      <p class="success-msg" id="bi-ok">✓ Métricas atualizadas!</p>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="gestorChart" height="100"></canvas>
+    </div>
+  </div>
+
+  <!-- CLIENTES -->
+  <div class="tab-panel" id="tab-clientes">
+    <table class="g-table">
+      <thead><tr><th>Nome</th><th>E-mail</th><th>Desde</th><th>Demandas</th></tr></thead>
+      <tbody id="clientes-body"></tbody>
+    </table>
+  </div>
+
+  <!-- DEMANDAS -->
+  <div class="tab-panel" id="tab-demandas">
+    <table class="g-table">
+      <thead><tr><th>Cliente</th><th>Assunto</th><th>Serviço</th><th>Prioridade</th><th>Data</th><th>Status</th></tr></thead>
+      <tbody id="demandas-body"></tbody>
+    </table>
+  </div>
+
+  <!-- AVALIAÇÕES -->
+  <div class="tab-panel" id="tab-avaliacoes">
+    <table class="g-table">
+      <thead><tr><th>Cliente</th><th>Serviço</th><th>Nota</th></tr></thead>
+      <tbody id="avaliacoes-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="js/dataService.js"></script>
+<script src="js/gestor-page.js"></script>
+</body>
+</html>
