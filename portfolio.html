@@ -32,6 +32,7 @@
     <a href="#projects" onclick="closeMobileMenu()" data-lang="pt:Projetos|en:Projects">Projetos</a>
     <a href="#gpts" onclick="closeMobileMenu()" data-lang="pt:IA|en:AI">IA</a>
     <a href="#clients" onclick="closeMobileMenu()" data-lang="pt:Clientes|en:Clients">Clientes</a>
+    <a href="cliente.html" class="nav-link-entrar" onclick="closeMobileMenu()" data-lang="pt:Entrar|en:Login">Entrar</a>
     <div class="lang-btn">
       <button onclick="changeLang('pt')" id="btn-pt" class="active">PT</button>
       <button onclick="changeLang('en')" id="btn-en">EN</button>
@@ -543,6 +544,53 @@ function closeBiModal() {
 function biModalOutside(e) {
   if (e.target === document.getElementById('bi-modal')) closeBiModal();
 }
+</script>
+
+<!-- Modal de Login do Gestor (atalho secreto Ctrl+Shift+G) -->
+<div id="gestorModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:2000;align-items:center;justify-content:center;">
+  <div style="background:#0d0d0d;border:1px solid rgba(204,255,0,.4);border-radius:12px;padding:2.5rem;width:min(90%,400px);">
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.12em;color:var(--yellow);margin-bottom:1.5rem;">ACESSO DO GESTOR</h3>
+    <input type="email" id="gestorEmail" placeholder="E-mail" autocomplete="off"
+      style="width:100%;box-sizing:border-box;margin-bottom:1rem;padding:.8rem;background:#111;border:1px solid rgba(255,255,255,.1);border-radius:4px;color:#fff;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;"/>
+    <input type="password" id="gestorSenha" placeholder="Senha"
+      style="width:100%;box-sizing:border-box;margin-bottom:1.5rem;padding:.8rem;background:#111;border:1px solid rgba(255,255,255,.1);border-radius:4px;color:#fff;font-family:'Space Mono',monospace;font-size:.8rem;outline:none;"/>
+    <button id="gestorLoginBtn" class="btn-primary" style="width:100%;justify-content:center;">Entrar</button>
+    <button id="closeGestorModal" style="margin-top:1rem;background:none;border:none;color:var(--gray);cursor:pointer;width:100%;font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.1em;">Cancelar</button>
+    <p id="gestorErro" style="color:#ff4d4d;font-family:'Space Mono',monospace;font-size:.7rem;margin-top:.75rem;min-height:1rem;"></p>
+  </div>
+</div>
+<script>
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && (e.key==='G'||e.key==='g'||e.key==='V'||e.key==='v')) {
+      e.preventDefault();
+      var m = document.getElementById('gestorModal');
+      m.style.display = m.style.display==='flex' ? 'none' : 'flex';
+      if (m.style.display==='flex') setTimeout(function(){ document.getElementById('gestorEmail').focus(); }, 80);
+    }
+  });
+  document.getElementById('closeGestorModal').addEventListener('click', function() {
+    document.getElementById('gestorModal').style.display = 'none';
+    document.getElementById('gestorErro').textContent = '';
+  });
+  document.getElementById('gestorModal').addEventListener('click', function(e) {
+    if (e.target === this) { this.style.display='none'; document.getElementById('gestorErro').textContent=''; }
+  });
+  document.getElementById('gestorLoginBtn').addEventListener('click', async function() {
+    var email = document.getElementById('gestorEmail').value.trim();
+    var senha = document.getElementById('gestorSenha').value;
+    var erro  = document.getElementById('gestorErro');
+    if (!email || !senha) { erro.textContent = 'Preencha todos os campos.'; return; }
+    var result = await DataService.loginGestor(email, senha);
+    if (result && result.success) {
+      window.location.href = 'gestor.html';
+    } else {
+      erro.textContent = 'Credenciais inválidas. Acesso negado.';
+      document.getElementById('gestorSenha').value = '';
+    }
+  });
+  document.getElementById('gestorSenha').addEventListener('keydown', function(e) {
+    if (e.key==='Enter') document.getElementById('gestorLoginBtn').click();
+  });
 </script>
 
 </body>

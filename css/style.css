@@ -196,6 +196,14 @@
     .gpt-card:hover{background:rgba(204,255,0,.08);border-color:var(--yellow)}
     .singulai-card{border-color:rgba(204,255,0,.35);cursor:pointer}
     .singulai-card:hover{border-color:var(--yellow);background:rgba(204,255,0,.1);transform:translateY(-4px)}
+    /* Botão Entrar no nav */
+    .nav-link-entrar{
+      font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;
+      color:var(--yellow)!important;text-decoration:none;
+      border:1px solid rgba(204,255,0,.35);padding:.3rem .85rem;
+      transition:all .2s;
+    }
+    .nav-link-entrar:hover{background:rgba(204,255,0,.1);border-color:var(--yellow)}
     .gpt-card-icon{margin-bottom:1.5rem;color:var(--yellow)}
     .gpt-card-icon svg{width:40px;height:40px}
     .gpt-card h3{font-size:1.2rem;font-weight:600;margin-bottom:.75rem;color:var(--white)}
