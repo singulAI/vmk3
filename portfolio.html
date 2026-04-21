@@ -63,14 +63,12 @@
 <div class="marquee-wrap">
   <div class="marquee-track">
     <span class="marquee-item">Meta Ads <span>✦</span></span>
-    <span class="marquee-item">Meta Ads <span>✦</span></span>
     <span class="marquee-item">Tráfego Pago <span>✦</span></span>
     <span class="marquee-item">Automação <span>✦</span></span>
     <span class="marquee-item">Funil de Vendas <span>✦</span></span>
     <span class="marquee-item">Inteligência Artificial <span>✦</span></span>
     <span class="marquee-item">Performance <span>✦</span></span>
     <span class="marquee-item">Copywriting <span>✦</span></span>
-    <span class="marquee-item">Meta Ads <span>✦</span></span>
     <span class="marquee-item">Meta Ads <span>✦</span></span>
     <span class="marquee-item">Tráfego Pago <span>✦</span></span>
     <span class="marquee-item">Automação <span>✦</span></span>
@@ -388,9 +386,6 @@
 
 <!-- FAB Group -->
 <div class="fab-group">
-  <button class="fab" onclick="toggleDrawer('contact-drawer')" title="Contato">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  </button>
   <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Topo">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
@@ -530,8 +525,8 @@ function openBiModal(type, title) {
     datasets = [{ label:'ROI', data:[1.8,2.1,1.9,2.8,3.2,4.0], borderColor:yellow, backgroundColor:yellowBg, tension:0.4, fill:true }];
     options  = { plugins:{legend:{labels:{color:'#fff'}}}, scales:{x:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'rgba(255,255,255,.6)'},grid:{color:'rgba(255,255,255,.05)'}}} };
   } else {
-    labels   = ['Meta Ads','Google Ads','Orgânico','Outros'];
-    datasets = [{ data:[45,30,15,10], backgroundColor:['#CCFF00','rgba(204,255,0,.6)','rgba(204,255,0,.35)','rgba(204,255,0,.15)'], borderWidth:0 }];
+    labels   = ['Meta Ads','Orgânico','Outros'];
+    datasets = [{ data:[60, 25, 15], backgroundColor:['#CCFF00','rgba(204,255,0,.45)','rgba(204,255,0,.18)'], borderWidth:0 }];
     options  = { plugins:{legend:{labels:{color:'#fff'}}} };
   }
   biModalChart = new Chart(canvas, { type:type, data:{labels:labels,datasets:datasets}, options:Object.assign({responsive:true,maintainAspectRatio:false},options) });
